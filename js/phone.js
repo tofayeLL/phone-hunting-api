@@ -5,6 +5,7 @@ const loadPhone = async (phoneName) => {
     const data = await res.json();
     const phones = data.data;
     displayPhones(phones);
+   
 }
 
 const displayPhones = (phones) => {
@@ -46,7 +47,11 @@ const displayPhones = (phones) => {
         `
         // 4.append child
         phoneContainer.appendChild(phoneCard);
-    })
+    });
+    
+
+    // hidden loading spinner
+    toggleLoadingSpinner(false);
 }
 
 
@@ -62,10 +67,26 @@ const handleSearch = () => {
 
 // handle search button 2
 const handleSearch2 = () => {
+    toggleLoadingSpinner(true);
     const searchField = document.getElementById('search-field2');
     const searchText = searchField.value;
     console.log(searchText);
     loadPhone(searchText);
+    searchField.value = '';
+   
+}
+
+
+// loading spinner
+const toggleLoadingSpinner = (isLoading) =>{
+    const loadingSpinner = document.getElementById('loading-spinner');
+    if(isLoading){
+        loadingSpinner.classList.remove('hidden');
+    }
+    else{
+    loadingSpinner.classList.add('hidden');
+    }
+   
 }
 
 

@@ -32,14 +32,18 @@
 
         <!-- search result -->
         <section class="my-10">
-            <div id="phone-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" >
-
-
-               
-               
+            <!-- spin container -->
+            <div id="loading-spinner" class="h-screen flex justify-center items-center hidden">
+                <span class="loading loading-spinner loading-lg w-[8%] text-red-500"></span>
 
             </div>
 
+            <!-- phone container -->
+            <div id="phone-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" >
+
+            </div>
+
+            <!-- show all btn container -->
             <div id="show-all-btn-container" class="hidden my-6">
                 <button class="btn btn-accent">Show All</button>
             </div>
