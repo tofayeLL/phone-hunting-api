@@ -11,12 +11,22 @@
 </head>
 
 <body>
-    <header>
+    <header class="text-center">
         <h2 class="text-6xl">Hunting Phone</h2>
 
     </header>
-    <main>
-        <section>
+    <main class="container mx-auto px-2 lg:px-24 my-20">
+
+        <!-- search -->
+        <section class="bg-slate-400 p-6 ">
+            <input id="search-field" type="text" placeholder="search here.." class="input input-bordered w-full max-w-xs" />
+            <button onclick="handleSearch()" class="btn">search</button>
+        </section>
+
+
+
+        <!-- search result -->
+        <section class="my-10">
             <div id="phone-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" >
 
                
