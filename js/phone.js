@@ -1,14 +1,14 @@
 
 
-const loadPhone = async (phoneName) => {
+const loadPhone = async (phoneName, isShowAll) => {
     const res = await fetch(`https://openapi.programming-hero.com/api/phones?search=${phoneName}`);
     const data = await res.json();
     const phones = data.data;
-    displayPhones(phones);
+    displayPhones(phones, isShowAll);
    
 }
 
-const displayPhones = (phones) => {
+const displayPhones = (phones, isShowAll) => {
     console.log(phones);
     // 1. get where we will append
     const phoneContainer = document.getElementById('phone-container');
@@ -18,29 +18,32 @@ const displayPhones = (phones) => {
     // show all button
     const showAllContainer = document.getElementById('show-all-btn-container');
 
-    if(phones.length > 12){
+    if(phones.length > 12 && !isShowAll){
         showAllContainer.classList.remove('hidden')  
     }
     else{
         showAllContainer.classList.add('hidden');
     }
-    
+    console.log('is showall', isShowAll);
     // display only first 12 phones
-    phones = phones.slice(0,12);
+    if(!isShowAll){
+        phones = phones.slice(0,12);
+    }
+    
 
     phones.forEach(phone => {
         console.log(phone);
         // 2. create a div
         const phoneCard = document.createElement('div'); 
-        phoneCard.classList = `card bg-base-100 p-4 shadow-xl`;
+        phoneCard.classList = `card bg-base-100 pt-6 shadow-xl `;
         // 3.set inner Html
         phoneCard.innerHTML = `
         <figure><img src="${phone.image}" alt="Shoes" /></figure>
-        <div class="card-body">
+        <div class="card-body flex flex-col justify-center items-center space-y-2">
             <h2 class="card-title">${phone['phone_name']}</h2>
-            <p>If a dog chews shoes whose shoes does he choose?</p>
-            <div class="card-actions justify-end">
-                <button class="btn btn-primary">Buy Now</button>
+            <p class="text-center">If a dog chews shoes whose shoes does he choose?</p>
+            <div class="card-actions justify-center">
+                <button onclick="handleShowDetail('${phone.slug}')" class="btn btn-primary">show details</button>
             </div>
         </div>
         
@@ -58,15 +61,16 @@ const displayPhones = (phones) => {
 
 
 // handle search button
-const handleSearch = () => {
+const handleSearch = (isShowAll) => {
+    toggleLoadingSpinner(true);
     const searchField = document.getElementById('search-field');
     const searchText = searchField.value;
-    loadPhone(searchText);
-    
+    loadPhone(searchText, isShowAll);
+   
 }
 
 // handle search button 2
-const handleSearch2 = () => {
+/* const handleSearch2 = () => {
     toggleLoadingSpinner(true);
     const searchField = document.getElementById('search-field2');
     const searchText = searchField.value;
@@ -74,6 +78,23 @@ const handleSearch2 = () => {
     loadPhone(searchText);
     searchField.value = '';
    
+} */
+
+// handle show all button
+const handleShowAll = ()=>{
+    handleSearch(true);
+
+}
+
+
+// handle show detail
+const handleShowDetail = async(id) =>{
+    console.log(id);
+    const res = await fetch(`https://openapi.programming-hero.com/api/phone/${id}`);
+    const data = await res.json();
+    console.log(data);
+    
+
 }
 
 
